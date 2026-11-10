@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Research Results</title>
+<meta name="description" content="What honest backtests found in memecoins, crypto, stocks and forex: every system tried, the real results, and what held up on data it never saw.">
+<link rel="canonical" href="https://timothymycompc.github.io/trading.html">
+<meta property="og:title" content="Trading research: memecoins, crypto, stocks, forex">
+<meta property="og:description" content="Thousands of rule versions, locked test data, hidden markets. What failed, what held up, and all the data.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0f19'/%3E%3Cpath d='M4 17h7l2-5 3 10 3-13 2 8h7' fill='none' stroke='%23dfc58a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --ink: #0a0f19; --panel: #121927; --raised: #182132; --line: #232c3e; --line2: #344057;
+  --text: #e9ecf2; --dim: #8a94a8; --dim2: #b4bccb; --faint: #657086;
+  --brass: #dfc58a; --brass2: #cfab66; --brass3: #b8914b;
+  --safe: #10b981; --caution: #f59e0b; --avoid: #f43f5e;
+  --head: Archivo, "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--ink); color: var(--text); font-family: var(--head); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--brass); text-decoration: none; }
+a:hover { color: var(--text); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 28px; } }
+body::before { content: ""; position: fixed; inset: 0; z-index: -2;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px; opacity: .3; mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%); }
+body::after { content: ""; position: fixed; inset: -20% -10% auto; height: 60vh; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 30% 20%, rgba(223,197,138,.12), transparent 60%), radial-gradient(ellipse at 80% 10%, rgba(244,63,94,.05), transparent 55%); }
+
+.back { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13px; }
+.hero { padding: 18px 0 6px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--brass2); }
+h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.05; font-weight: 800; letter-spacing: -.02em; margin: 8px 0 10px; }
+h1 .gold { background: linear-gradient(95deg, var(--brass3), var(--brass) 45%, var(--brass2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { color: var(--dim2); font-size: 16px; max-width: 700px; }
+
+/* scoreboard */
+.score { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 18px 0 4px; }
+@media (min-width: 640px) { .score { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .score { grid-template-columns: repeat(4, 1fr); } }
+.mk { display: block; padding: 15px 16px; border-radius: 14px; background: linear-gradient(180deg, var(--raised), var(--panel)); border: 1px solid var(--line); position: relative; overflow: hidden; color: var(--text);
+  opacity: 0; transform: translateY(10px); animation: up .6s ease forwards; transition: border-color .15s, transform .15s; }
+.mk:hover { border-color: var(--acc); color: var(--text); transform: translateY(-2px); }
+.mk::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--acc); }
+.mk .lab { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.mk .v { font-size: 19px; font-weight: 800; color: var(--acc); margin: 4px 0 2px; line-height: 1.2; }
+.mk .d { font-size: 13.5px; color: var(--dim2); }
+.mk .go { font-family: var(--mono); font-size: 12px; color: var(--brass); margin-top: 6px; display: block; }
+@keyframes up { to { opacity: 1; transform: none; } }
+
+/* tabs */
+.tabs { position: sticky; top: 0; z-index: 10; margin-top: 18px; background: rgba(10,15,25,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-top: 8px; padding-bottom: 8px; }
+.tabs .wrap::-webkit-scrollbar { display: none; }
+.tab { font-family: var(--mono); font-size: 13.5px; color: var(--dim2); padding: 8px 13px; border-radius: 9px; border: 1px solid transparent; background: none; cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--brass); }
+.tab[aria-selected="true"] { color: #1a1408; background: var(--brass); font-weight: 700; }
+.panel { display: none; padding: 22px 0 40px; animation: fade .35s ease; }
+.panel.on { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.panel h2 { font-size: 23px; font-weight: 800; margin-bottom: 4px; }
+.panel h3 { font-size: 16px; font-weight: 800; margin: 20px 0 8px; }
+.panel .sub { color: var(--dim); font-size: 14.5px; margin-bottom: 14px; max-width: 760px; }
+
+.verdict { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; border: 1px solid; margin: 4px 0 16px; font-size: 15px; }
+.verdict b { display: block; font-size: 17px; margin-bottom: 2px; }
+.verdict.bad { border-color: rgba(244,63,94,.45); background: rgba(244,63,94,.07); } .verdict.bad b { color: var(--avoid); }
+.verdict.mix { border-color: rgba(245,158,11,.45); background: rgba(245,158,11,.07); } .verdict.mix b { color: var(--caution); }
+.verdict .ic { font-family: var(--mono); font-weight: 700; font-size: 13px; padding: 3px 8px; border-radius: 7px; white-space: nowrap; margin-top: 2px; }
+.verdict.bad .ic { color: var(--avoid); border: 1px solid rgba(244,63,94,.5); }
+.verdict.mix .ic { color: var(--caution); border: 1px solid rgba(245,158,11,.5); }
+.verdict span { color: var(--dim2); }
+
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--brass2); font-weight: 500; padding: 10px 12px; border-bottom: 1px solid var(--line2); background: var(--raised); white-space: nowrap; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--dim2); }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: rgba(223,197,138,.035); }
+td.name { color: var(--text); font-weight: 700; }
+td.num { font-family: var(--mono); white-space: nowrap; text-align: right; }
+.neg { color: var(--avoid); } .pos { color: var(--safe); } .warn { color: var(--caution); }
+tr.hl td { background: rgba(16,185,129,.06); }
+
+.found { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 4px; }
+@media (min-width: 820px) { .found { grid-template-columns: 1fr 1fr; } }
+.found div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; font-size: 14.5px; color: var(--dim2); }
+.found div b { color: var(--text); display: block; margin-bottom: 2px; }
+.src { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 14px; }
+.src a { margin-right: 12px; white-space: nowrap; }
+ol.rules { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: var(--dim2); font-size: 14.5px; max-width: 820px; }
+ol.rules b { color: var(--text); }
+footer { padding: 26px 0 50px; color: var(--faint); font-family: var(--mono); font-size: 12px; border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } .mk { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <a class="back" href="./">← Portfolio</a>
+  <div class="hero">
+    <div class="kicker">Trading research · Oct–Nov 2026 · all code + data public</div>
+    <h1>What we found in <span class="gold">four markets</span>, tested honestly.</h1>
+    <p class="lede">Thousands of rule versions across memecoins, crypto, stocks and forex. Every one was judged on data it was not
+      chosen on: locked years, hidden markets, tests saved to git before they ran. This page sums up what failed and what held up.
+      It doesn't say these markets can't be beaten, only that nothing we built beat them on this much data.</p>
+  </div>
+  <div class="score">
+    <a class="mk" href="#memecoins" data-tab="memecoins" style="--acc:var(--avoid);animation-delay:.05s"><div class="lab">Memecoins</div><div class="v">Every lane lost</div><div class="d">641 paper trades, −$720. 16,071-coin replay: every exit loses.</div><span class="go">details →</span></a>
+    <a class="mk" href="#crypto" data-tab="crypto" style="--acc:var(--avoid);animation-delay:.12s"><div class="lab">Crypto (SOL, JUP, BONK, WIF)</div><div class="v">0 of 436 beat holding</div><div class="d">7 months of hourly prices. Random rules did as well.</div><span class="go">details →</span></a>
+    <a class="mk" href="#stocks" data-tab="stocks" style="--acc:var(--avoid);animation-delay:.19s"><div class="lab">Stocks (US ETFs)</div><div class="v">Nothing beat SPY</div><div class="d">Locked year: best rule +4.9% vs just holding +12.9%.</div><span class="go">details →</span></a>
+    <a class="mk" href="#forex" data-tab="forex" style="--acc:var(--caution);animation-delay:.26s"><div class="lab">Forex</div><div class="v">1 effect held up</div><div class="d">~1,500 indicator versions failed hidden data. The Fed-day dollar drop held on 4 pairs.</div><span class="go">details →</span></a>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Markets"><div class="wrap" role="tablist">
+  <button class="tab" role="tab" data-tab="memecoins">Memecoins</button>
+  <button class="tab" role="tab" data-tab="crypto">Crypto</button>
+  <button class="tab" role="tab" data-tab="stocks">Stocks</button>
+  <button class="tab" role="tab" data-tab="forex">Forex</button>
+  <button class="tab" role="tab" data-tab="method">How we tested</button>
+</div></nav>
+
+<main class="wrap">
+
+<!-- MEMECOINS -->
+<section class="panel" id="memecoins" role="tabpanel">
+  <h2>Memecoins on Solana</h2>
+  <p class="sub">Trade Desk: a bot that scouts brand-new Solana coins, screens them with Solana Pulse safety checks, and paper-trades them with different exit rules.</p>
+  <div class="verdict bad"><span class="ic">LOST</span><div><b>No lane, exit rule or entry filter made money.</b><span>Buying new memecoins from public scans loses by design: the coins that run 13×+ are the same minutes-old pools that rug.</span></div></div>
+
+  <h3>What we tested</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Test</th><th>Data</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">6 live paper lanes, $1,000 each</td><td>Main, Fast, Ladder A/B, WAIT-5 momentum, wallet copy</td><td><span class="neg">All 6 lost: 641 trades, −$720</span> since the Nov 7 reset</td></tr>
+      <tr><td class="name">Strict replay, every exit rule</td><td>16,071 coins with 1-minute candles (Nov 1–4)</td><td><span class="neg">Every exit loses</span>: typical trade −11.6% to −17.9%</td></tr>
+      <tr><td class="name">120-cell exit grid</td><td>Take-profit 10–100% × stop 6–40% × 30–600 min, trailing stops</td><td><span class="neg">No lead</span></td></tr>
+      <tr><td class="name">Entry filters</td><td>Safety verdict, liquidity, volume, buy/sell ratio, pool age</td><td>Safer coins stop the rugs but still <span class="neg">bleed ~2% a trade</span> to costs</td></tr>
+      <tr><td class="name">6 brand-new strategies (Claude + Gemini)</td><td>Dip buys, breakouts, second-wave, capitulation bounce, flow; 5,705 coins at 1%/side</td><td><span class="neg">0 leads</span>; big samples −5% to −19% a trade</td></tr>
+      <tr><td class="name">Copy the "smart wallets"</td><td>100 coins, 105,857 transactions, every wallet's profit</td><td><span class="neg">Failed</span>: early winners lost on later coins (−12.6 SOL)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Who actually makes money on a new coin</h3>
+  <p class="sub">From the wallet study (one row = one wallet trading one coin, inside the first 2 hours):</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Who</th><th style="text-align:right">Wallets</th><th style="text-align:right">Profitable</th><th style="text-align:right">Total</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="name">Sold more than they bought (got tokens before trading opened)</td><td class="num">2,828</td><td class="num pos">95.8%</td><td class="num pos">+1,816 SOL</td></tr>
+      <tr class="hl"><td class="name">Pool creators</td><td class="num">49</td><td class="num pos">59.2%</td><td class="num pos">+124 SOL</td></tr>
+      <tr><td class="name">Bought in the launch slot</td><td class="num">167</td><td class="num">34.7%</td><td class="num neg">−187 SOL</td></tr>
+      <tr><td class="name">First buy within 10 s</td><td class="num">1,685</td><td class="num">18.7%</td><td class="num neg">−584 SOL</td></tr>
+      <tr><td class="name">First buy 10–60 s</td><td class="num">8,033</td><td class="num">4.1%</td><td class="num neg">−6,417 SOL</td></tr>
+      <tr><td class="name">First buy 1–10 min</td><td class="num">18,410</td><td class="num">1.1%</td><td class="num neg">−1,709 SOL</td></tr>
+      <tr><td class="name">First buy after 10 min</td><td class="num">382</td><td class="num">0.5%</td><td class="num neg">−31 SOL</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What we found out</h3>
+  <div class="found">
+    <div><b>The money goes to insiders.</b>Wallets that held tokens before trading opened made +1,816 SOL. Every group that bought after launch lost: about 8,900 SOL combined. By the time a bot sees a coin, it is already late.</div>
+    <div><b>"Smart wallets" were mostly luck.</b>51 wallets won on 3+ early coins. On later coins they won only 39% of the time and lost 12.6 SOL in total.</div>
+    <div><b>Stops don't stop rugs.</b>Crash fills came in at −70% to −100%. Three rugs caused $224 of the first run's $238 in losses.</div>
+    <div><b>Spotting scams works; trading doesn't.</b>Coins Pulse rated AVOID were 82% dead soon after, and 0 of 15 SAFE coins died. Telling rugs apart is possible. Profiting from new coins is a different problem.</div>
+  </div>
+  <p class="src"><a href="https://github.com/Timothymycompc/trading-review/blob/master/crypto-memecoins.md">full write-up</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/trade-desk/research">raw data + scripts</a><a href="https://github.com/Timothymycompc/trading-review/releases/tag/memecoin-candles">23,379 coins of candles</a><a href="https://trade-desk-x23jefx3zq-uc.a.run.app/desk">live paper desk</a></p>
+</section>
+
+<!-- CRYPTO -->
+<section class="panel" id="crypto" role="tabpanel">
+  <h2>Crypto: established Solana tokens</h2>
+  <p class="sub">Not new launches: timing rules on established tokens (SOL, JUP, BONK, WIF), plus a check of whether safety ratings match what happened next.</p>
+  <div class="verdict bad"><span class="ic">LOST</span><div><b>0 of 436 rules made money and beat simply holding in both periods.</b><span>Random entry and exit times with the same amount of trading produced 2. Being out of a rising market costs more than timing saves.</span></div></div>
+
+  <h3>What we tested</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Test</th><th>Data</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">436 timing rules (109 per token)</td><td>~7 months of hourly price + volume, each token's main Solana pool (GeckoTerminal). Rules found on the first 60%, judged on the last 40%. Costs 0.1–0.3% a side</td><td><span class="neg">0 beat holding</span> in both periods (random rules: 2)</td></tr>
+      <tr><td class="name">Rule families</td><td>Moving-average crosses, price above average, Bollinger bounce and breakout, RSI, breakouts, momentum, volume spikes, hour of day, day of week, dip buys in uptrends</td><td>25 made money in both periods. All 25 trailed holding, because the test period rose 19–35% on every token</td></tr>
+      <tr><td class="name">Luck check vs random timing</td><td>The same number of trades at random times, many runs</td><td><span class="warn">3 beat random in both periods.</span> They are candidates for a forward test, not edges, because they were picked from 436</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The 3 candidates (not proven)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Rule</th><th style="text-align:right">Train</th><th style="text-align:right">Test</th><th style="text-align:right">Random did as well</th></tr></thead>
+    <tbody>
+      <tr><td class="name">JUP: in an uptrend (above 168-h average), buy below the lower Bollinger band, sell at the middle band or after 48 h</td><td class="num">+11.0%</td><td class="num">+31.1%</td><td class="num">9% / 1%</td></tr>
+      <tr><td class="name">JUP: after an hour with 5× normal volume and price up, hold 24 h</td><td class="num">+13.9%</td><td class="num">+40.7%</td><td class="num">15% / 2%</td></tr>
+      <tr><td class="name">WIF: buy below the lower Bollinger band (20, 2.5), sell at the middle band or after 72 h</td><td class="num">+6.8%</td><td class="num">+15.9%</td><td class="num">4% / 8%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What we found out</h3>
+  <div class="found">
+    <div><b>In a rising market, holding wins.</b>Every token rose 19–35% in the test period. A rule that sits in cash part of the time has to be very good to keep up.</div>
+    <div><b>Mean reversion was the only family that showed signs of life.</b>Buying sharp dips below the Bollinger band on JUP and WIF beat random timing. That is still 3 hits out of 436 tries, so it needs a forward test.</div>
+    <div><b>Established tokens behave nothing like new launches.</b>All 15 coins Pulse rated SAFE (WBTC, ETH, Bonk, HYPE, ZEC and others) were alive and just moved with the market. 82% of the AVOID coins died.</div>
+    <div><b>Seven months is short.</b>One trend, one market mood. The stock and forex tests below used 5–20 years for that reason.</div>
+  </div>
+  <p class="src"><a href="https://github.com/Timothymycompc/trading-review/tree/master/trade-desk/research/2026-11-01-price-rules">rules, luck test + fetch script</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/trade-desk/research/2026-11-03-verdict-outcomes">safety verdict check</a></p>
+</section>
+
+<!-- STOCKS -->
+<section class="panel" id="stocks" role="tabpanel">
+  <h2>Regular stocks (US ETFs)</h2>
+  <p class="sub">Night Desk: an overnight desk that searches for stock rules and paper-trades only the ones that beat holding the S&amp;P 500 (SPY) after costs.</p>
+  <div class="verdict bad"><span class="ic">LOST</span><div><b>No timing rule beat just holding SPY.</b><span>An AI-assisted search found 3 that did beat SPY on the data they were picked from. On the locked final year they made a third of what holding made.</span></div></div>
+
+  <h3>What we tested</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Round</th><th>Rules</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">1</td><td>20-day momentum + breakout, 60-day momentum above the 50-day average, pullbacks in an uptrend. Walk-forward test with the newest 40% unseen</td><td><span class="neg">Best +10% vs SPY +30%</span></td></tr>
+      <tr><td class="name">2 (AI search, 27 rules)</td><td>200-day trend filters, sector rotation, panic dip-buying, volatility timing. Searched on Jul 2020 → Nov 2025; the newest year was never written to disk</td><td>Finalists beat SPY on search data (+67.6% vs +61.5%), <span class="neg">then lost on the locked year</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The locked year (Nov 2025 → Nov 2026), tested once</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Strategy</th><th style="text-align:right">Return</th><th style="text-align:right">Max drawdown</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="name">Just hold SPY</td><td class="num pos">+12.9%</td><td class="num">8.9%</td></tr>
+      <tr><td class="name">Trend + panic dip (20/200)</td><td class="num">+4.9%</td><td class="num">8.9%</td></tr>
+      <tr><td class="name">Trend only</td><td class="num">+4.7%</td><td class="num">8.9%</td></tr>
+      <tr><td class="name">Trend + panic dip (15/200)</td><td class="num">+4.0%</td><td class="num">8.9%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What we found out</h3>
+  <div class="found">
+    <div><b>Holding the index is a hard benchmark.</b>Momentum, breakouts, pullbacks, trend filters and sector rotation either lost to SPY or only beat it on the data they were tuned on.</div>
+    <div><b>Trend filters trade return for comfort.</b>They cut drawdowns in some years but cost more return than they saved.</div>
+    <div><b>Count your tries.</b>With 27 rules tested, the adjusted confidence that the "winners" were real was only ~0.70, below the usual 0.95 bar. The locked year confirmed it was luck.</div>
+    <div><b>Two bugs made it look better than it was.</b>A fake 88% drawdown came from one engine bug. A confidence check got yearly numbers where it needed daily ones. Both were caught and fixed.</div>
+  </div>
+  <p class="src">Alpaca daily bars, 13 ETFs (SPY, QQQ + 11 sectors), Jul 2020 → Nov 2026, 5 bps a side · <a href="https://github.com/Timothymycompc/trading-review/blob/master/stocks.md">full write-up</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/night-desk/research/lab">every rule tried</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/night-desk/research/data">price data</a></p>
+</section>
+
+<!-- FOREX -->
+<section class="panel" id="forex" role="tabpanel">
+  <h2>Forex</h2>
+  <p class="sub">It started with an old tip: "a 5/16 moving-average crossover with Japanese candlesticks on EUR/USD is profitable." We tested that, everything people usually add to it, and then effects from published research.</p>
+  <div class="verdict mix"><span class="ic">MIXED</span><div><b>Indicator systems: no real edge. One effect from published research held up.</b><span>The best EUR/USD system lost on 9 other pairs and on 2005–2015. Selling the dollar on Fed announcement days held on 4 pairs over 21 years.</span></div></div>
+
+  <h3>Indicator systems (~1,500 versions)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Tested</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="name">5/16 SMA + EMA crossover, daily 1999–2026</td><td>Made a little before 2015, <span class="neg">lost since</span> (−2 to −3%/yr)</td></tr>
+      <tr><td class="name">Same on 15m / 1h / 4h / daily + candle patterns</td><td>15m and 1h <span class="neg">lose everywhere</span> (15m: −19,795 pips 2016–21). 4h + engulfing was the only positive one</td></tr>
+      <tr><td class="name">EMA ribbon 5/16/35/68 with volatility gates</td><td><span class="neg">0 of 45</span> combinations positive in all 3 periods</td></tr>
+      <tr><td class="name">"Everything" system + 1,260 stop/trail/target settings</td><td>4h: ~70–76% of settings positive on EUR/USD. 1h and 15m: <span class="neg">0 of 1,260</span></td></tr>
+      <tr><td class="name">Self-tuning version that "learns as it goes"</td><td>Chased last period's winner and <span class="neg">did not beat</span> a fixed setting</td></tr>
+      <tr><td class="name">No stop, take-profit only</td><td>Showed "100% wins" while holding losers up to 5½ years at −2,000 pips. <span class="warn">A trap</span></td></tr>
+      <tr><td class="name">Hidden-data test (saved to git before it ran)</td><td>Best 4h system, unchanged: <span class="neg">−61.9R on 9 other pairs</span> (515 trades), <span class="neg">−630 pips</span> on EUR/USD 2005–2015</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Effects from published papers (rules fixed from the papers before running)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Effect</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="name">Fed day: sell USD from 5 PM New York the evening before a scheduled Fed announcement until 5 PM on the day <br><span style="font-weight:500;color:var(--faint);font-size:12.5px">Mueller, Tahbaz-Salehi &amp; Vedolin, Journal of Finance 2017</span></td><td><span class="pos">Holds.</span> EUR/USD 2005–2026: 174 events, +2,717 pips, t = 2.3; also positive on GBP, JPY and AUD. The same trade on other days: −2 to −3 pips. <span class="warn">Last 12 months negative.</span></td></tr>
+      <tr><td class="name">Month-end rebalancing into the London 4 PM fix <br><span style="font-weight:500;color:var(--faint);font-size:12.5px">Melvin &amp; Prins 2015</span></td><td><span class="neg">Fails</span>: EUR/USD −1,911 pips</td></tr>
+      <tr><td class="name">A currency weakens during its own trading hours <br><span style="font-weight:500;color:var(--faint);font-size:12.5px">Breedon &amp; Ranaldo 2013</span></td><td><span class="warn">Real but not tradeable</span>: +2.25 pips/day before costs (t = 4.8); the 1.5-pip spread eats it</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What we found out</h3>
+  <div class="found">
+    <div><b>Costs decide short timeframes.</b>On 15-minute and 1-hour charts the spread ate every rule. One rule paid ~14,800 pips in spread over 6 years.</div>
+    <div><b>Stops were the ingredient that mattered.</b>On 4h charts the move-to-breakeven and trailing stop did more than any indicator.</div>
+    <div><b>An effect with a reason beats a chart pattern.</b>The only thing that held up is a dollar flow with a known cause, not an indicator mix.</div>
+    <div><b>Mixing unrelated systems helps.</b>Trend + Fed day raised return per drawdown from 0.41 to 0.63, about 16%/yr at a 25% max drawdown in a typical backtest year. All 4 systems now run as a forward paper test, started Nov 9, 2026.</div>
+  </div>
+  <p class="src">Oanda candles (15m → daily, 10 pairs, measured spreads, back to 2005), FRED, federalreserve.gov · <a href="https://github.com/Timothymycompc/trading-review/blob/master/forex.md">full write-up</a><a href="https://github.com/Timothymycompc/trading-review/blob/master/night-desk/research/fx/FINDINGS.md">findings</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/night-desk/research/fx">every price file</a></p>
+</section>
+
+<!-- METHOD -->
+<section class="panel" id="method" role="tabpanel">
+  <h2>How we tested, and why most backtests lie</h2>
+  <p class="sub">Our biggest early "wins" (+2,000% a trade, a 6,526× coin, Sharpe ratios above 3) were all bugs in the test, not edges in the market. These rules are how we caught them.</p>
+  <ol class="rules">
+    <li><b>Real data, named.</b> Every price has a named source. Missing data is "unknown", never filled in.</li>
+    <li><b>No look-ahead.</b> A signal on a candle's close fills at the next candle's open. If a stop and a target hit in the same candle, the stop counts first.</li>
+    <li><b>Real costs.</b> Measured spreads per currency pair, 5 bps a side for ETFs, 1% a side and −100% write-offs for dead memecoins.</li>
+    <li><b>Several periods, not one total.</b> A rule has to make money in each period, not just overall.</li>
+    <li><b>Locked data.</b> The newest stock year was never written to disk during the search, and the script refuses a second run. Forex kept 9 other pairs and 2005–2015 hidden.</li>
+    <li><b>Save the test before running it.</b> Hidden-data tests were committed to git first, so nobody could adjust them after seeing results.</li>
+    <li><b>Count the tries.</b> Adjust confidence for how many rules were tested. For settings grids, report how much of the grid works, not the best cell.</li>
+    <li><b>Compare with doing nothing clever.</b> Stocks vs holding SPY, crypto vs holding the token, rules vs random timing.</li>
+    <li><b>Then forward-test.</b> The future is the only data none of these systems has seen.</li>
+  </ol>
+  <p class="src"><a href="https://github.com/Timothymycompc/trading-review/blob/master/method.md">method</a><a href="https://github.com/Timothymycompc/trading-review/blob/master/hardships.md">hardships + how we got past them</a><a href="https://github.com/Timothymycompc/trading-review">whole repo</a></p>
+</section>
+</main>
+
+<footer><div class="wrap">Every number comes from the linked code and data, written with Claude and Gemini as research assistants. Nothing here is financial advice, and past results don't promise future ones. · <a href="./">Back to the portfolio</a></div></footer>
+
+<script>
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll(".tab")), panels = [].slice.call(document.querySelectorAll(".panel"));
+  function show(id, scroll) {
+    var p = document.getElementById(id);
+    if (!p || !p.classList.contains("panel")) id = "memecoins";
+    tabs.forEach(function (t) { t.setAttribute("aria-selected", t.dataset.tab === id ? "true" : "false"); });
+    panels.forEach(function (q) { q.classList.toggle("on", q.id === id); });
+    if (scroll) document.querySelector(".tabs").scrollIntoView({ behavior: "smooth", block: "start" });
+    var t = document.querySelector('.tab[data-tab="' + id + '"]');
+    if (t && t.parentNode.scrollTo) t.parentNode.scrollTo({ left: t.offsetLeft - 40, behavior: "smooth" });
+  }
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-tab]"); if (!el) return;
+    e.preventDefault(); history.replaceState(null, "", "#" + el.dataset.tab); show(el.dataset.tab, true);
+  });
+  show((location.hash || "#memecoins").slice(1), false);
+  window.addEventListener("hashchange", function () { show(location.hash.slice(1), true); });
+})();
+</script>
+</body>
+</html>
