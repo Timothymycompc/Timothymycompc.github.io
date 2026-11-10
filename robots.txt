@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://timothymycompc.github.io/sitemap.xml
