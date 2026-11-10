@@ -38,10 +38,15 @@ nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); backgr
 nav .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .02em; color: var(--text); }
 .logo svg { width: 28px; height: 28px; }
-nav .links { margin-left: auto; display: flex; gap: 18px; font-family: var(--mono); font-size: 13px; }
-nav .links a { color: var(--dim2); } nav .links a:hover { color: var(--brass); }
-@media (max-width: 720px) { nav .links a.opt { display: none; } }
-
+nav .links { margin-left: auto; display: flex; gap: 4px; font-family: var(--mono); font-size: 13px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 18px; }
+nav .links::-webkit-scrollbar { display: none; }
+nav .links a { color: var(--dim2); padding: 6px 10px; border-radius: 8px; white-space: nowrap; }
+nav .links a:hover { color: var(--brass); }
+nav .links a.on { color: var(--ink); background: var(--brass); }
+@media (max-width: 720px) { .logo span { display: none; } nav .wrap { gap: 10px; } }
+.top-btn { position: fixed; right: 16px; bottom: 18px; z-index: 20; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line2); background: rgba(18,25,39,.92); color: var(--brass); display: grid; place-items: center; font-size: 18px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s, transform .2s; }
+.top-btn.show { opacity: 1; pointer-events: auto; transform: none; }
+section, header { scroll-margin-top: 70px; }
 /* hero */
 .hero { padding: 72px 0 40px; }
 .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--brass2); }
@@ -94,10 +99,10 @@ h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -.015e
 .facts li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 2px; background: var(--brass2); }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag { font-family: var(--mono); font-size: 11.5px; color: var(--dim); border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; }
-.links-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
-.links-row a { font-family: var(--mono); font-size: 13px; padding: 7px 11px; border-radius: 8px; border: 1px solid var(--line2); color: var(--text); background: rgba(255,255,255,.02); }
-.links-row a:hover { border-color: var(--brass2); color: var(--brass); }
-.links-row span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); padding: 7px 4px; }
+.links-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 13px; }
+.links-row a { color: var(--brass); padding: 4px 0; }
+.links-row a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.links-row span { color: var(--faint); font-size: 12.5px; }
 
 /* fixes list */
 .fixes { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
@@ -134,14 +139,16 @@ tr.total td:last-child { color: var(--brass); font-size: 18px; }
 .video { margin-top: 22px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line2); background: #000; aspect-ratio: 16 / 9; }
 .video video { width: 100%; height: 100%; display: block; }
 
-/* contact */
-.contact { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
-@media (min-width: 640px) { .contact { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 980px) { .contact { grid-template-columns: 1fr 1fr 1fr; } }
-.contact a { display: flex; flex-direction: column; gap: 2px; padding: 15px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); transition: border-color .15s, transform .15s; }
-.contact a:hover { border-color: var(--brass2); transform: translateY(-2px); color: var(--text); }
-.contact a small { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass2); }
-.contact a span { font-family: var(--mono); font-size: 13.5px; color: var(--dim2); word-break: break-all; }
+/* links table */
+.ltable { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 14.5px; }
+.ltable th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass2); font-weight: 500; padding: 10px 8px; border-bottom: 1px solid var(--line2); }
+.ltable td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; font-family: var(--head); color: var(--text); white-space: normal; }
+.ltable td:first-child { font-weight: 700; white-space: nowrap; }
+.ltable td a { font-family: var(--mono); font-size: 13px; margin-right: 12px; display: inline-block; padding: 2px 0; }
+.ltable td .muted { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.ltable tr.group td { padding-top: 22px; font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line2); font-weight: 500; }
+.ltable tr:hover td { background: rgba(223,197,138,.03); }
+@media (max-width: 640px) { .ltable td:first-child { white-space: normal; width: 34%; } .ltable td a { margin-right: 10px; } }
 footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); font-size: 12px; border-top: 1px solid var(--line); margin-top: 30px; }
 .dots { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
 .dots i { width: 8px; height: 8px; border-radius: 50%; animation: blink 2.4s infinite; }
@@ -158,8 +165,8 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gb" x1="0" x2="1"><stop offset="0" stop-color="#b8914b"/><stop offset=".5" stop-color="#dfc58a"/><stop offset="1" stop-color="#cfab66"/></linearGradient></defs></svg>
 
 <nav><div class="wrap">
-  <a class="logo" href="#top"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#121927" stroke="#344057"/><path d="M4 17h7l2-5 3 10 3-13 2 8h7" fill="none" stroke="#dfc58a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Timothy</a>
-  <div class="links"><a href="#work">Work</a><a class="opt" href="#fixes">Open source</a><a class="opt" href="#about">About</a><a href="#contact">Contact</a></div>
+  <a class="logo" href="#top"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#121927" stroke="#344057"/><path d="M4 17h7l2-5 3 10 3-13 2 8h7" fill="none" stroke="#dfc58a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Timothy</span></a>
+  <div class="links"><a href="#work">Work</a><a href="#fixes">Open source</a><a href="#about">About</a><a href="#time">Time</a><a href="#links">Links</a></div>
 </div></nav>
 
 <header class="hero wrap" id="top">
@@ -171,7 +178,7 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
     <a class="btn primary" href="#work">See the work ↓</a>
     <a class="btn" href="https://github.com/Timothymycompc">GitHub</a>
     <a class="btn" href="https://github.com/Timothymycompc/dev-log">Dev log</a>
-    <a class="btn" href="#contact">Contact</a>
+    <a class="btn" href="#links">All links</a>
   </div>
   <div class="stats">
     <div class="stat rv"><div class="n" data-count="250">≈250</div><div class="l">hours since Aug 30</div></div>
@@ -203,8 +210,7 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
         <a href="https://t.me/SolanaPulseCheckBot">Telegram bot ↗</a>
         <a href="https://www.npmjs.com/package/solana-agent-kit-plugin-pulse">npm plugin ↗</a>
         <a href="https://github.com/Timothymycompc/solana-pulse-ai-agent-gateway/releases/tag/videos-2026-10-21">Demo videos ↗</a>
-        <a href="https://x.com/solanapulsebots">X ↗</a>
-      </div>
+              </div>
     </article>
 
     <article class="card rv">
@@ -297,7 +303,7 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
   </div>
 
   <div class="cols">
-    <div class="box rv">
+    <div class="box rv" id="time">
       <h3>Time invested (estimated)</h3>
       <table id="hours">
         <tr><td>Solana Pulse<div class="bar"><i data-w="165"></i></div></td><td>~165 h</td></tr>
@@ -338,25 +344,32 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
   <div class="video rv"><video controls preload="metadata" src="meet-tim.mp4"></video></div>
 </section>
 
-<section class="wrap" id="contact">
-  <div class="kicker rv">Contact &amp; links</div>
-  <h2 class="rv">Everything in one place</h2>
-  <div class="contact">
-    <a class="rv" href="mailto:timothymycompc@gmail.com"><small>Email</small><span>timothymycompc@gmail.com</span></a>
-    <a class="rv" href="https://github.com/Timothymycompc"><small>GitHub</small><span>github.com/Timothymycompc</span></a>
-    <a class="rv" id="fiverr" href="#" hidden><small>Fiverr</small><span>hire me on Fiverr</span></a>
-    <a class="rv" href="https://www.youtube.com/@timothymycompc1205"><small>YouTube</small><span>@timothymycompc1205</span></a>
-    <a class="rv" href="https://x.com/solanapulsebots"><small>X</small><span>@solanapulsebots</span></a>
-    <a class="rv" href="https://dev.to/timothymycompc"><small>dev.to</small><span>dev.to/timothymycompc</span></a>
-    <a class="rv" href="https://github.com/Timothymycompc/dev-log"><small>Dev log</small><span>the full story: built, broke, fixed, learned</span></a>
-    <a class="rv" href="https://github.com/Timothymycompc/trading-review"><small>Research</small><span>trading review, all code + data</span></a>
-    <a class="rv" href="https://solana-pulse-gateway-x23jefx3zq-uc.a.run.app/"><small>Solana Pulse</small><span>live safety API</span></a>
-    <a class="rv" href="https://t.me/SolanaPulseCheckBot"><small>Telegram</small><span>@SolanaPulseCheckBot</span></a>
-    <a class="rv" href="https://www.npmjs.com/package/solana-agent-kit-plugin-pulse"><small>npm</small><span>solana-agent-kit-plugin-pulse</span></a>
-    <a class="rv" href="https://glama.ai/mcp/connectors/io.github.Timothymycompc/solana-pulse-gateway"><small>Glama</small><span>Solana Pulse MCP listing</span></a>
+<section class="wrap" id="links">
+  <div class="kicker rv">Links</div>
+  <h2 class="rv">Every link in one table</h2>
+  <div class="rv" style="overflow-x:auto">
+  <table class="ltable">
+    <tr><th>Project</th><th>Live</th><th>Code</th><th>More</th></tr>
+    <tr><td>Solana Pulse</td><td><a href="https://solana-pulse-gateway-x23jefx3zq-uc.a.run.app/">site ↗</a></td><td><a href="https://github.com/Timothymycompc/solana-pulse-ai-agent-gateway">GitHub ↗</a></td><td><a href="https://t.me/SolanaPulseCheckBot">Telegram bot</a><a href="https://www.npmjs.com/package/solana-agent-kit-plugin-pulse">npm</a><a href="https://github.com/Timothymycompc/solana-pulse-ai-agent-gateway/releases/tag/videos-2026-10-21">videos</a><a href="https://glama.ai/mcp/connectors/io.github.Timothymycompc/solana-pulse-gateway">Glama</a></td></tr>
+    <tr><td>Base Pulse</td><td><a href="https://base-pulse-x23jefx3zq-uc.a.run.app/">site ↗</a></td><td><a href="https://github.com/Timothymycompc/base-pulse">GitHub ↗</a></td><td></td></tr>
+    <tr><td>Rug Check</td><td><a href="https://rug-check-x23jefx3zq-uc.a.run.app/">site ↗</a></td><td><span class="muted">private</span></td><td></td></tr>
+    <tr><td>CashOut Check</td><td><a href="https://cashout-check-x23jefx3zq-uc.a.run.app/">site ↗</a></td><td><a href="https://github.com/Timothymycompc/cashout-check">GitHub ↗</a></td><td></td></tr>
+    <tr><td>Firewood Buyers</td><td><a href="https://firewood-buyers-x23jefx3zq-uc.a.run.app/need">form ↗</a></td><td><span class="muted">private</span></td><td><a href="https://t.me/Woodfinerbot">@Woodfinerbot</a></td></tr>
+    <tr><td>Trading Review</td><td><a href="https://trade-desk-x23jefx3zq-uc.a.run.app/desk">memecoin desk ↗</a></td><td><a href="https://github.com/Timothymycompc/trading-review">GitHub ↗</a></td><td></td></tr>
+    <tr><td>V1 Ready</td><td><span class="muted">pipeline</span></td><td><span class="muted">private</span></td><td><a href="#fixes">fixes it led to</a></td></tr>
+    <tr><td>Dev log</td><td></td><td><a href="https://github.com/Timothymycompc/dev-log">GitHub ↗</a></td><td><a href="https://github.com/Timothymycompc/dev-log/blob/master/security.md">security</a><a href="https://github.com/Timothymycompc/dev-log/blob/master/apis-cloud-ai.md">APIs, cloud, AI</a></td></tr>
+    <tr class="group"><td colspan="4">Me</td></tr>
+    <tr><td>Email</td><td colspan="3"><a href="mailto:timothymycompc@gmail.com">timothymycompc@gmail.com</a></td></tr>
+    <tr><td>GitHub</td><td colspan="3"><a href="https://github.com/Timothymycompc">github.com/Timothymycompc</a></td></tr>
+    <tr id="fiverr" hidden><td>Fiverr</td><td colspan="3"><a href="#">fiverr</a></td></tr>
+    <tr><td>YouTube</td><td colspan="3"><a href="https://www.youtube.com/@timothymycompc1205">@timothymycompc1205</a></td></tr>
+    <tr><td>X</td><td colspan="3"><a href="https://x.com/solanapulsebots">@solanapulsebots</a></td></tr>
+    <tr><td>dev.to</td><td colspan="3"><a href="https://dev.to/timothymycompc">dev.to/timothymycompc</a></td></tr>
+  </table>
   </div>
 </section>
 
+<a class="top-btn" href="#top" aria-label="Back to top">↑</a>
 <footer><div class="wrap"><span class="dots"><i></i><i></i><i></i></span>Built in the open. Every number comes from real data and the linked repos. Nothing here is financial advice.</div></footer>
 
 <script>
@@ -379,6 +392,17 @@ footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); fo
     var step = function (ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1400), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = pre + v; if (p < 1) requestAnimationFrame(step); };
     setTimeout(function () { requestAnimationFrame(step); }, 500);
   });
+  // highlight the section you're in, show back-to-top after the hero
+  var navLinks = [].slice.call(document.querySelectorAll("nav .links a"));
+  var ids = navLinks.map(function (a) { return a.getAttribute("href").slice(1); });
+  var topBtn = document.querySelector(".top-btn");
+  var onScroll = function () {
+    var y = window.scrollY + 90, cur = null;
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el && el.getBoundingClientRect().top + window.scrollY <= y) cur = id; });
+    navLinks.forEach(function (a) { var on = a.getAttribute("href") === "#" + cur; a.classList.toggle("on", on); if (on && a.scrollIntoView && window.innerWidth < 720) a.parentNode.scrollLeft = a.offsetLeft - 40; });
+    topBtn.classList.toggle("show", window.scrollY > 600);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 })();
 </script>
 </body>
