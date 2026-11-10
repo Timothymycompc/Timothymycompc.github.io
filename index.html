@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timothy · Builder Portfolio</title>
+<meta name="description" content="Self-taught builder: safety tools for AI agents and people on Solana, Telegram bots, cloud services, honest research. Live projects, code and links.">
+<meta property="og:title" content="Timothy · Builder Portfolio">
+<meta property="og:description" content="Solana Pulse, Telegram bots, cloud services and honest research — ~250 hours since Aug 2026, mostly built on a phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0f19'/%3E%3Cpath d='M4 17h7l2-5 3 10 3-13 2 8h7' fill='none' stroke='%23dfc58a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --ink: #0a0f19; --panel: #121927; --raised: #182132; --line: #232c3e; --line2: #344057;
+  --text: #e9ecf2; --dim: #8a94a8; --dim2: #b4bccb; --faint: #657086;
+  --brass: #dfc58a; --brass2: #cfab66; --brass3: #b8914b;
+  --safe: #10b981; --caution: #f59e0b; --avoid: #f43f5e;
+  --head: Archivo, "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--text); font-family: var(--head); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--brass); text-decoration: none; }
+a:hover { color: var(--text); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+/* background grid + glow */
+body::before { content: ""; position: fixed; inset: 0; z-index: -2;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px; opacity: .35; mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%); }
+body::after { content: ""; position: fixed; inset: -20% -10% auto; height: 70vh; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 30% 20%, rgba(223,197,138,.13), transparent 60%), radial-gradient(ellipse at 80% 10%, rgba(16,185,129,.07), transparent 55%); }
+
+/* nav */
+nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); background: rgba(10,15,25,.78); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .02em; color: var(--text); }
+.logo svg { width: 28px; height: 28px; }
+nav .links { margin-left: auto; display: flex; gap: 18px; font-family: var(--mono); font-size: 13px; }
+nav .links a { color: var(--dim2); } nav .links a:hover { color: var(--brass); }
+@media (max-width: 720px) { nav .links a.opt { display: none; } }
+
+/* hero */
+.hero { padding: 72px 0 40px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--brass2); }
+h1 { font-size: clamp(40px, 8vw, 84px); line-height: 1.02; font-weight: 800; letter-spacing: -.025em; margin: 14px 0 18px; }
+h1 .gold { background: linear-gradient(95deg, var(--brass3), var(--brass) 45%, var(--brass2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { font-size: clamp(17px, 2.2vw, 21px); color: var(--dim2); max-width: 760px; }
+.lede b { color: var(--text); font-weight: 700; }
+.pulse-line { width: 100%; height: 64px; margin: 34px 0 6px; }
+.pulse-line path { fill: none; stroke: url(#gb); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: draw 2.6s .3s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 14px; padding: 11px 16px; border-radius: 10px; border: 1px solid var(--line2); color: var(--text); background: var(--panel); transition: transform .15s, border-color .15s, box-shadow .15s; }
+.btn:hover { transform: translateY(-2px); border-color: var(--brass2); box-shadow: 0 0 0 3px rgba(223,197,138,.12); color: var(--text); }
+.btn.primary { background: linear-gradient(95deg, var(--brass3), var(--brass)); color: #1a1408; border-color: transparent; font-weight: 700; }
+.btn.primary:hover { color: #1a1408; }
+.btn svg { width: 16px; height: 16px; }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 44px; }
+@media (min-width: 820px) { .stats { grid-template-columns: repeat(5, 1fr); } }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; position: relative; overflow: hidden; }
+.stat::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--brass3), var(--brass)); }
+.stat .n { font-size: 34px; font-weight: 800; letter-spacing: -.02em; color: var(--brass); }
+.stat .l { font-family: var(--mono); font-size: 12px; color: var(--dim); margin-top: 4px; }
+
+/* sections */
+section { padding: 56px 0; }
+h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -.015em; margin: 10px 0 8px; }
+.sub { color: var(--dim); max-width: 720px; }
+
+/* project cards */
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 26px; }
+@media (min-width: 760px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1080px) { .grid.three { grid-template-columns: 1fr 1fr 1fr; } }
+.card { background: linear-gradient(180deg, var(--raised), var(--panel)); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.card:hover { transform: translateY(-3px); border-color: var(--line2); box-shadow: 0 14px 40px rgba(0,0,0,.35); }
+.card.feature { border-color: rgba(223,197,138,.45); box-shadow: 0 0 0 1px rgba(223,197,138,.12) inset; }
+@media (min-width: 760px) { .card.feature { grid-column: 1 / -1; } }
+.card .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card h3 { font-size: 22px; font-weight: 800; }
+.card p { color: var(--dim2); font-size: 15.5px; }
+.status { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; display: inline-flex; gap: 7px; align-items: center; white-space: nowrap; }
+.status.live { color: var(--safe); border: 1px solid rgba(16,185,129,.45); background: rgba(16,185,129,.08); }
+.status.built { color: var(--caution); border: 1px solid rgba(245,158,11,.45); background: rgba(245,158,11,.08); }
+.status.research { color: var(--brass); border: 1px solid rgba(223,197,138,.45); background: rgba(223,197,138,.08); }
+.status.live i { width: 7px; height: 7px; border-radius: 50%; background: var(--safe); animation: ping 1.8s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,.6); } 80%, 100% { box-shadow: 0 0 0 7px rgba(16,185,129,0); } }
+.facts { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; color: var(--dim2); }
+.facts li { padding-left: 18px; position: relative; }
+.facts li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 2px; background: var(--brass2); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--mono); font-size: 11.5px; color: var(--dim); border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; }
+.links-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
+.links-row a { font-family: var(--mono); font-size: 13px; padding: 7px 11px; border-radius: 8px; border: 1px solid var(--line2); color: var(--text); background: rgba(255,255,255,.02); }
+.links-row a:hover { border-color: var(--brass2); color: var(--brass); }
+.links-row span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); padding: 7px 4px; }
+
+/* fixes list */
+.fixes { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
+@media (min-width: 760px) { .fixes { grid-template-columns: 1fr 1fr 1fr; } }
+.fix { display: flex; justify-content: space-between; gap: 10px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; font-family: var(--mono); font-size: 13.5px; color: var(--text); }
+.fix:hover { border-color: rgba(16,185,129,.5); color: var(--text); }
+.fix em { font-style: normal; font-size: 11px; color: var(--safe); }
+.fix.open em { color: var(--caution); }
+
+/* two column text */
+.cols { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 24px; }
+@media (min-width: 860px) { .cols { grid-template-columns: 1.2fr 1fr; } }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+.box h3 { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+.box.warn { border-color: rgba(245,158,11,.35); }
+.box ul { list-style: none; display: flex; flex-direction: column; gap: 10px; color: var(--dim2); font-size: 15px; }
+.box li b { color: var(--text); }
+
+/* time table */
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+td { padding: 9px 4px; border-bottom: 1px solid var(--line); }
+td:last-child { text-align: right; font-family: var(--mono); color: var(--brass); white-space: nowrap; }
+tr.total td { border-bottom: 0; font-weight: 800; color: var(--text); padding-top: 14px; }
+tr.total td:last-child { color: var(--brass); font-size: 18px; }
+.bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 5px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brass3), var(--brass)); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+.note { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 12px; }
+
+/* tools */
+.stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.stack span { font-family: var(--mono); font-size: 13px; padding: 7px 11px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); color: var(--dim2); }
+
+/* video */
+.video { margin-top: 22px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line2); background: #000; aspect-ratio: 16 / 9; }
+.video video { width: 100%; height: 100%; display: block; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
+@media (min-width: 640px) { .contact { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 980px) { .contact { grid-template-columns: 1fr 1fr 1fr; } }
+.contact a { display: flex; flex-direction: column; gap: 2px; padding: 15px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); transition: border-color .15s, transform .15s; }
+.contact a:hover { border-color: var(--brass2); transform: translateY(-2px); color: var(--text); }
+.contact a small { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass2); }
+.contact a span { font-family: var(--mono); font-size: 13.5px; color: var(--dim2); word-break: break-all; }
+footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); font-size: 12px; border-top: 1px solid var(--line); margin-top: 30px; }
+.dots { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; animation: blink 2.4s infinite; }
+.dots i:nth-child(1) { background: var(--safe); } .dots i:nth-child(2) { background: var(--caution); animation-delay: .8s; } .dots i:nth-child(3) { background: var(--avoid); animation-delay: 1.6s; }
+@keyframes blink { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+/* reveal on scroll */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; } .pulse-line path { animation: none; stroke-dashoffset: 0; } .dots i, .status.live i { animation: none; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gb" x1="0" x2="1"><stop offset="0" stop-color="#b8914b"/><stop offset=".5" stop-color="#dfc58a"/><stop offset="1" stop-color="#cfab66"/></linearGradient></defs></svg>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#121927" stroke="#344057"/><path d="M4 17h7l2-5 3 10 3-13 2 8h7" fill="none" stroke="#dfc58a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Timothy</a>
+  <div class="links"><a href="#work">Work</a><a class="opt" href="#fixes">Open source</a><a class="opt" href="#about">About</a><a href="#contact">Contact</a></div>
+</div></nav>
+
+<header class="hero wrap" id="top">
+  <div class="kicker rv">Self-taught builder · Solana · cloud · AI</div>
+  <h1 class="rv">I build <span class="gold">safety tools</span><br>for people and AI agents<br>that move money.</h1>
+  <p class="lede rv">Since August 2026, in my off-work hours and mostly from a phone, I've shipped a <b>live safety API</b>, <b>five Telegram bots</b>, an <b>ecosystem bug investigation</b> that got fixes merged in other teams' code, and <b>honest research</b> that publishes what failed — not just what worked.</p>
+  <svg class="pulse-line" viewBox="0 0 1100 64" preserveAspectRatio="none"><path d="M0 40 H420 l16 -20 l20 40 l18 -52 l20 56 l16 -24 H700 l12 -12 l14 22 l12 -10 H1100"/></svg>
+  <div class="cta rv">
+    <a class="btn primary" href="#work">See the work ↓</a>
+    <a class="btn" href="https://github.com/Timothymycompc">GitHub</a>
+    <a class="btn" href="https://github.com/Timothymycompc/dev-log">Dev log</a>
+    <a class="btn" href="#contact">Contact</a>
+  </div>
+  <div class="stats">
+    <div class="stat rv"><div class="n" data-count="250">≈250</div><div class="l">hours since Aug 30</div></div>
+    <div class="stat rv"><div class="n">31/31</div><div class="l">days worked since Oct 10</div></div>
+    <div class="stat rv"><div class="n">9/9</div><div class="l">attack cases caught (benchmark)</div></div>
+    <div class="stat rv"><div class="n" data-count="6">6</div><div class="l">projects merged fixes from my reports</div></div>
+    <div class="stat rv"><div class="n" data-count="5">5</div><div class="l">Telegram bots</div></div>
+  </div>
+</header>
+
+<section class="wrap" id="work">
+  <div class="kicker rv">Work</div>
+  <h2 class="rv">Projects, with live links and code</h2>
+  <p class="sub rv">Every number comes from the project's own tests or logs. "Live" means you can open it right now.</p>
+
+  <div class="grid">
+    <article class="card feature rv">
+      <div class="top"><h3>Solana Pulse</h3><span class="status live"><i></i>live</span></div>
+      <p>A safety gateway for AI agents on Solana: <b>check a transaction before your agent signs it</b>, flag known token traps, explain failed swaps. Plain HTTP + MCP from one tool registry, paid per call in USDC with x402.</p>
+      <ul class="facts">
+        <li>Public benchmark: 9/9 real attack cases caught for the right reason, 0 false alarms</li>
+        <li>200 real mainnet transactions: 0 false blocks, fees exact 200/200</li>
+        <li>Listed in the official MCP registry and 4 curated lists (all merged)</li>
+      </ul>
+      <div class="tags"><span class="tag">TypeScript</span><span class="tag">Express</span><span class="tag">MCP</span><span class="tag">x402</span><span class="tag">Cloud Run</span><span class="tag">Postgres</span></div>
+      <div class="links-row">
+        <a href="https://solana-pulse-gateway-x23jefx3zq-uc.a.run.app/">Live site ↗</a>
+        <a href="https://github.com/Timothymycompc/solana-pulse-ai-agent-gateway">GitHub ↗</a>
+        <a href="https://t.me/SolanaPulseCheckBot">Telegram bot ↗</a>
+        <a href="https://www.npmjs.com/package/solana-agent-kit-plugin-pulse">npm plugin ↗</a>
+        <a href="https://github.com/Timothymycompc/solana-pulse-ai-agent-gateway/releases/tag/videos-2026-10-21">Demo videos ↗</a>
+        <a href="https://x.com/solanapulsebots">X ↗</a>
+      </div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>Base Pulse</h3><span class="status live"><i></i>live</span></div>
+      <p>The same safety layer for AI agents paying on Base: recipient checks, approvals, sanctions list, x402 checks, smart-wallet-aware transaction checks.</p>
+      <ul class="facts"><li>Flagged 28/28 poisoned addresses; 0 of 88 real payments flagged</li></ul>
+      <div class="links-row"><a href="https://base-pulse-x23jefx3zq-uc.a.run.app/">Live site ↗</a><a href="https://github.com/Timothymycompc/base-pulse">GitHub ↗</a></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>Rug Check</h3><span class="status live"><i></i>live</span></div>
+      <p>A free, plain-language "is this Solana token a rug pull?" page for regular people, running on Solana Pulse's token check. Honest "couldn't check" instead of a guessed verdict.</p>
+      <div class="links-row"><a href="https://rug-check-x23jefx3zq-uc.a.run.app/">Try it ↗</a><span>code private for now</span></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>CashOut Check</h3><span class="status live"><i></i>live</span></div>
+      <p>Paste an online casino, play-to-earn app, Telegram mini-app or deposit wallet and get one plain scam-risk answer, every fact with its source. Built from real scams I traced by hand.</p>
+      <div class="links-row"><a href="https://cashout-check-x23jefx3zq-uc.a.run.app/">Live site ↗</a><a href="https://github.com/Timothymycompc/cashout-check">GitHub ↗</a></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>Firewood Buyers</h3><span class="status live"><i></i>live</span></div>
+      <p>Finds likely firewood buyers in nine North Texas towns from free public data (places, OpenStreetMap, weather cold-night alerts, ash-borer quarantine list). Public request form + private owner bot.</p>
+      <div class="links-row"><a href="https://firewood-buyers-x23jefx3zq-uc.a.run.app/need">Request form ↗</a><a href="https://t.me/Woodfinerbot">@Woodfinerbot ↗</a><span>code private</span></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>Trading Review</h3><span class="status research">research</span></div>
+      <p>Honest backtests of memecoin bots, stock rules and forex systems — locked test years, hidden data, tests committed before they ran. Publishes what failed. All code and raw price data public.</p>
+      <ul class="facts"><li>~1,500 forex versions tested; the Fed-day dollar effect held on 4 pairs, 2005–2026</li><li>A live forward paper test runs hourly on Google Cloud</li></ul>
+      <div class="links-row"><a href="https://github.com/Timothymycompc/trading-review">GitHub ↗</a><a href="https://trade-desk-x23jefx3zq-uc.a.run.app/desk">Memecoin desk (live) ↗</a></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>V1 Ready</h3><span class="status live"><i></i>running</span></div>
+      <p>Measures how many Solana swaps use the new version 1 transaction format (35–44% when found) and finds apps that can't read them. Pipeline runs every 15 minutes in its own cloud project.</p>
+      <div class="links-row"><a href="#fixes">Fixes it led to ↓</a><span>code private for now</span></div>
+    </article>
+
+    <article class="card rv">
+      <div class="top"><h3>More bots &amp; tools</h3><span class="status built">built</span></div>
+      <p><b>Money Scan</b> (grants and bounties that are really open), <b>Gig Bidder</b> (freelance job assistant with hard caps), <b>Clip Drop</b> (post a video once to several platforms), plus ops tools for honest usage stats.</p>
+      <div class="links-row"><a href="https://github.com/Timothymycompc/dev-log/blob/master/bots-and-tools.md">Details ↗</a><span>code private</span></div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap" id="fixes">
+  <div class="kicker rv">Open source</div>
+  <h2 class="rv">A bug I found in real data, fixed in other teams' code</h2>
+  <p class="sub rv">Reading mainnet blocks, I found that a large share of Solana swaps had moved to <b>version 1 transactions</b>, which many apps couldn't read. I fixed my own API the same night, then filed 32 reports (Oct 28 – Nov 1) with a measured explanation for each project.</p>
+  <div class="fixes">
+    <a class="fix rv" href="https://github.com/elizaOS/eliza/pull/38116">elizaOS <em>fix merged</em></a>
+    <a class="fix rv" href="https://github.com/rotki/rotki/pull/13511">rotki <em>fix merged</em></a>
+    <a class="fix rv" href="https://github.com/MikeyPetrillo/Agent402/commit/dcd099c49134ac7d4342e7ab178256c3215c3f11">Agent402 <em>fix merged</em></a>
+    <a class="fix rv" href="https://github.com/UltiMafia/Ultimafia/pull/3128">UltiMafia <em>fix merged</em></a>
+    <a class="fix rv" href="https://github.com/0xfnzero/sol-parser-sdk-nodejs/pull/5">sol-parser-sdk-nodejs <em>fix merged</em></a>
+    <a class="fix rv" href="https://github.com/antonpiat/taurvia/commit/f823f7b48062477e96f8210b9cda0efbcd09172a">taurvia <em>fix merged</em></a>
+    <a class="fix open rv" href="https://github.com/openbook-dex/openbook-v2/pull/297">openbook-v2 <em>my PR · open</em></a>
+    <a class="fix open rv" href="https://github.com/Merit-Systems/x402scan/pull/1329">x402scan <em>my PR · open</em></a>
+    <a class="fix open rv" href="https://github.com/lfdt-ibc/ibc-contracts/pull/1249">ibc-contracts <em>my PR · open</em></a>
+  </div>
+</section>
+
+<section class="wrap" id="about">
+  <div class="kicker rv">About</div>
+  <h2 class="rv">What I'm good at, and what I'm working on</h2>
+  <div class="cols">
+    <div class="box rv">
+      <h3>Strengths</h3>
+      <ul>
+        <li><b>I ship complete systems.</b> API, database, payments, scheduled jobs, alerts, one-command rollback — on Google Cloud.</li>
+        <li><b>I measure instead of claiming.</b> Recorded real cases as tests, public benchmarks, track records that include misses.</li>
+        <li><b>I find real problems in real data.</b> The version 1 bug came from reading blocks, not from an issue list.</li>
+        <li><b>Careful with money and secrets.</b> Secret Manager only, hard wallet limits and kill switches, check-before-sign, no IPs stored. <a href="https://github.com/Timothymycompc/dev-log/blob/master/security.md">How ↗</a></li>
+        <li><b>Productive with AI, and I check its work.</b> Claude Code and Gemini as pair-programmer and reviewer; tests are the referee. <a href="https://github.com/Timothymycompc/dev-log/blob/master/apis-cloud-ai.md">More ↗</a></li>
+        <li><b>Resourceful.</b> Most of this was built on a phone, using free data wherever possible.</li>
+      </ul>
+    </div>
+    <div class="box warn rv">
+      <h3>Still working on</h3>
+      <ul>
+        <li><b>Coding without AI help.</b> I direct and review AI-written code well; hand-coding fundamentals are next.</li>
+        <li><b>Getting real users.</b> 180k+ calls to Pulse came from directories, monitors and tests — not customers yet.</li>
+        <li><b>Finishing before starting.</b> A few bots are built but not deployed; one project at a time now.</li>
+        <li><b>Money made so far: $0.</b> What it bought: real skills, a public track record, and fixes in other people's code.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="box rv">
+      <h3>Time invested (estimated)</h3>
+      <table id="hours">
+        <tr><td>Solana Pulse<div class="bar"><i data-w="165"></i></div></td><td>~165 h</td></tr>
+        <tr><td>Trade Desk (memecoins)<div class="bar"><i data-w="40"></i></div></td><td>~40 h</td></tr>
+        <tr><td>V1 Ready + bug reports<div class="bar"><i data-w="19"></i></div></td><td>~19 h</td></tr>
+        <tr><td>Phone setup + AI tooling<div class="bar"><i data-w="17"></i></div></td><td>~17 h</td></tr>
+        <tr><td>CashOut Check<div class="bar"><i data-w="10"></i></div></td><td>~10 h</td></tr>
+        <tr><td>Base Pulse<div class="bar"><i data-w="9"></i></div></td><td>~9 h</td></tr>
+        <tr><td>Freelance tools<div class="bar"><i data-w="6"></i></div></td><td>~6 h</td></tr>
+        <tr><td>Night Desk (stocks + forex)<div class="bar"><i data-w="5"></i></div></td><td>~5 h</td></tr>
+        <tr><td>Firewood Buyers<div class="bar"><i data-w="4"></i></div></td><td>~4 h</td></tr>
+        <tr><td>Dev log + portfolio<div class="bar"><i data-w="4"></i></div></td><td>~4 h</td></tr>
+        <tr><td>Rug Check, Money Scan, Clip Drop<div class="bar"><i data-w="2"></i></div></td><td>~2 h</td></tr>
+        <tr class="total"><td>Total (rows overlap slightly)</td><td>≈ 250 h</td></tr>
+      </table>
+      <p class="note">From git commit sessions + AI-session history. <a href="https://github.com/Timothymycompc/dev-log#time-spent-estimated">Method + script ↗</a></p>
+    </div>
+    <div class="box rv">
+      <h3>Tools I use</h3>
+      <div class="stack">
+        <span>TypeScript</span><span>Node.js / Express</span><span>Python</span><span>PostgreSQL</span><span>Google Cloud Run</span><span>Cloud SQL</span><span>Cloud Scheduler</span><span>Secret Manager</span><span>Cloud Build</span><span>Cloud Storage</span><span>Solana web3.js / kit</span><span>Jupiter · Helius</span><span>Base / EVM</span><span>MCP</span><span>x402</span><span>Telegram Bot API</span><span>GitHub Actions (OIDC)</span><span>Claude Code</span><span>Gemini / Antigravity</span>
+      </div>
+      <h3 style="margin-top:24px">Timeline</h3>
+      <ul>
+        <li><b>Aug 30</b> — first commit of Solana Pulse</li>
+        <li><b>Oct 14</b> — Base Pulse live</li>
+        <li><b>Oct 19</b> — benchmark 9/9; version 1 bug found</li>
+        <li><b>Oct 28 – Nov 1</b> — 32 bug reports; fixes merged</li>
+        <li><b>Nov 9</b> — Rug Check live; forex paper test starts</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="video" hidden>
+  <div class="kicker rv">Video</div>
+  <h2 class="rv">Meet Tim, in 90 seconds</h2>
+  <div class="video rv"><video controls preload="metadata" src="meet-tim.mp4"></video></div>
+</section>
+
+<section class="wrap" id="contact">
+  <div class="kicker rv">Contact &amp; links</div>
+  <h2 class="rv">Everything in one place</h2>
+  <div class="contact">
+    <a class="rv" href="mailto:timothymycompc@gmail.com"><small>Email</small><span>timothymycompc@gmail.com</span></a>
+    <a class="rv" href="https://github.com/Timothymycompc"><small>GitHub</small><span>github.com/Timothymycompc</span></a>
+    <a class="rv" id="fiverr" href="#" hidden><small>Fiverr</small><span>hire me on Fiverr</span></a>
+    <a class="rv" href="https://www.youtube.com/@timothymycompc1205"><small>YouTube</small><span>@timothymycompc1205</span></a>
+    <a class="rv" href="https://x.com/solanapulsebots"><small>X</small><span>@solanapulsebots</span></a>
+    <a class="rv" href="https://dev.to/timothymycompc"><small>dev.to</small><span>dev.to/timothymycompc</span></a>
+    <a class="rv" href="https://github.com/Timothymycompc/dev-log"><small>Dev log</small><span>the full story: built, broke, fixed, learned</span></a>
+    <a class="rv" href="https://github.com/Timothymycompc/trading-review"><small>Research</small><span>trading review, all code + data</span></a>
+    <a class="rv" href="https://solana-pulse-gateway-x23jefx3zq-uc.a.run.app/"><small>Solana Pulse</small><span>live safety API</span></a>
+    <a class="rv" href="https://t.me/SolanaPulseCheckBot"><small>Telegram</small><span>@SolanaPulseCheckBot</span></a>
+    <a class="rv" href="https://www.npmjs.com/package/solana-agent-kit-plugin-pulse"><small>npm</small><span>solana-agent-kit-plugin-pulse</span></a>
+    <a class="rv" href="https://glama.ai/mcp/connectors/io.github.Timothymycompc/solana-pulse-gateway"><small>Glama</small><span>Solana Pulse MCP listing</span></a>
+  </div>
+</section>
+
+<footer><div class="wrap"><span class="dots"><i></i><i></i><i></i></span>Built in the open. Every number comes from real data and the linked repos. Nothing here is financial advice.</div></footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var els = document.querySelectorAll(".rv");
+  if (!("IntersectionObserver" in window) || reduce) { els.forEach(function (e) { e.classList.add("in"); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: .12 });
+    els.forEach(function (e, i) { e.style.transitionDelay = (i % 6) * 60 + "ms"; io.observe(e); });
+  }
+  // hour bars grow when the table comes into view
+  var max = 165, bars = document.querySelectorAll("#hours .bar i");
+  var grow = function () { bars.forEach(function (b) { b.style.width = (100 * parseFloat(b.dataset.w) / max) + "%"; }); };
+  if (reduce || !("IntersectionObserver" in window)) grow();
+  else new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { grow(); o.disconnect(); } }, { threshold: .2 }).observe(document.getElementById("hours"));
+  // count-up for a few stats
+  document.querySelectorAll("[data-count]").forEach(function (el) {
+    if (reduce) return; var to = +el.dataset.count, pre = el.textContent.indexOf("≈") === 0 ? "≈" : "", t0 = null;
+    var step = function (ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1400), v = Math.round(to * (1 - Math.pow(1 - p, 3))); el.textContent = pre + v; if (p < 1) requestAnimationFrame(step); };
+    setTimeout(function () { requestAnimationFrame(step); }, 500);
+  });
+})();
+</script>
+</body>
+</html>
