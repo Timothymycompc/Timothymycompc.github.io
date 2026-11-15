@@ -102,14 +102,14 @@ footer { padding: 26px 0 50px; color: var(--faint); font-family: var(--mono); fo
 <header class="wrap">
   <a class="back" href="./">← Portfolio</a>
   <div class="hero">
-    <div class="kicker">Trading research · Oct–Nov 2026 · all code + data public</div>
+    <div class="kicker">Trading research · Oct–Nov 2026 · updated Nov 15 · all code + data public</div>
     <h1>What we found in <span class="gold">four markets</span>, tested honestly.</h1>
     <p class="lede">Thousands of rule versions across memecoins, crypto, stocks and forex. Every one was judged on data it was not
       chosen on: locked years, hidden markets, tests saved to git before they ran. This page sums up what failed and what held up.
       It doesn't say these markets can't be beaten, only that nothing we built beat them on this much data.</p>
   </div>
   <div class="score">
-    <a class="mk" href="#memecoins" data-tab="memecoins" style="--acc:var(--avoid);animation-delay:.05s"><div class="lab">Memecoins</div><div class="v">Every lane lost</div><div class="d">641 paper trades, −$720. 16,071-coin replay: every exit loses.</div><span class="go">details →</span></a>
+    <a class="mk" href="#memecoins" data-tab="memecoins" style="--acc:var(--avoid);animation-delay:.05s"><div class="lab">Memecoins</div><div class="v">Every lane lost</div><div class="d">2,639 paper trades in 16 runs, −$2,665, 0 runs profitable. 16,071-coin replay: every exit loses.</div><span class="go">details →</span></a>
     <a class="mk" href="#crypto" data-tab="crypto" style="--acc:var(--avoid);animation-delay:.12s"><div class="lab">Crypto (SOL, JUP, BONK, WIF)</div><div class="v">0 of 436 beat holding</div><div class="d">7 months of hourly prices. Random rules did as well.</div><span class="go">details →</span></a>
     <a class="mk" href="#stocks" data-tab="stocks" style="--acc:var(--avoid);animation-delay:.19s"><div class="lab">Stocks (US ETFs)</div><div class="v">Nothing beat SPY</div><div class="d">Locked year: best rule +4.9% vs just holding +12.9%.</div><span class="go">details →</span></a>
     <a class="mk" href="#forex" data-tab="forex" style="--acc:var(--caution);animation-delay:.26s"><div class="lab">Forex</div><div class="v">1 effect held up</div><div class="d">~1,500 indicator versions failed hidden data. The Fed-day dollar drop held on 4 pairs.</div><span class="go">details →</span></a>
@@ -137,6 +137,7 @@ footer { padding: 26px 0 50px; color: var(--faint); font-family: var(--mono); fo
     <thead><tr><th>Test</th><th>Data</th><th>Result</th></tr></thead>
     <tbody>
       <tr><td class="name">6 live paper lanes, $1,000 each</td><td>Main, Fast, Ladder A/B, WAIT-5 momentum, wallet copy</td><td><span class="neg">All 6 lost: 641 trades, −$720</span> since the Nov 7 reset</td></tr>
+      <tr><td class="name">Every paper run, Nov 1–15</td><td>16 runs across all lanes; Ladder A kept running after the others were retired Nov 9</td><td><span class="neg">0 of 16 ended in profit: 2,639 trades, 909 wins (34%), −$2,665.</span> Ladder A alone since Nov 9: 986 trades, −$581</td></tr>
       <tr><td class="name">Strict replay, every exit rule</td><td>16,071 coins with 1-minute candles (Nov 1–4)</td><td><span class="neg">Every exit loses</span>: typical trade −11.6% to −17.9%</td></tr>
       <tr><td class="name">120-cell exit grid</td><td>Take-profit 10–100% × stop 6–40% × 30–600 min, trailing stops</td><td><span class="neg">No lead</span></td></tr>
       <tr><td class="name">Entry filters</td><td>Safety verdict, liquidity, volume, buy/sell ratio, pool age</td><td>Safer coins stop the rugs but still <span class="neg">bleed ~2% a trade</span> to costs</td></tr>
@@ -186,13 +187,14 @@ footer { padding: 26px 0 50px; color: var(--faint); font-family: var(--mono); fo
     </tbody>
   </table></div>
 
-  <h3>The 3 candidates (not proven)</h3>
+  <h3>The 3 candidates (not proven): forward test, Nov 1–15</h3>
+  <p class="sub">Same code and costs, run on the 14 days of prices that came <em>after</em> the study. Only 2–6 trades each, far too few to call an edge.</p>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>Rule</th><th style="text-align:right">Train</th><th style="text-align:right">Test</th><th style="text-align:right">Random did as well</th></tr></thead>
+    <thead><tr><th>Rule</th><th style="text-align:right">Train</th><th style="text-align:right">Test</th><th style="text-align:right">Random did as well</th><th style="text-align:right">Forward (vs holding)</th></tr></thead>
     <tbody>
-      <tr><td class="name">JUP: in an uptrend (above 168-h average), buy below the lower Bollinger band, sell at the middle band or after 48 h</td><td class="num">+11.0%</td><td class="num">+31.1%</td><td class="num">9% / 1%</td></tr>
-      <tr><td class="name">JUP: after an hour with 5× normal volume and price up, hold 24 h</td><td class="num">+13.9%</td><td class="num">+40.7%</td><td class="num">15% / 2%</td></tr>
-      <tr><td class="name">WIF: buy below the lower Bollinger band (20, 2.5), sell at the middle band or after 72 h</td><td class="num">+6.8%</td><td class="num">+15.9%</td><td class="num">4% / 8%</td></tr>
+      <tr><td class="name">JUP: in an uptrend (above 168-h average), buy below the lower Bollinger band, sell at the middle band or after 48 h</td><td class="num">+11.0%</td><td class="num">+31.1%</td><td class="num">9% / 1%</td><td class="num">+3.2% vs +4.3%, 3 trades</td></tr>
+      <tr><td class="name">JUP: after an hour with 5× normal volume and price up, hold 24 h</td><td class="num">+13.9%</td><td class="num">+40.7%</td><td class="num">15% / 2%</td><td class="num">+10.0% vs +4.3%, 2 trades</td></tr>
+      <tr><td class="name">WIF: buy below the lower Bollinger band (20, 2.5), sell at the middle band or after 72 h</td><td class="num">+6.8%</td><td class="num">+15.9%</td><td class="num">4% / 8%</td><td class="num">−1.5% vs −25.2%, 6 trades</td></tr>
     </tbody>
   </table></div>
 
@@ -277,7 +279,7 @@ footer { padding: 26px 0 50px; color: var(--faint); font-family: var(--mono); fo
     <div><b>Costs decide short timeframes.</b>On 15-minute and 1-hour charts the spread ate every rule. One rule paid ~14,800 pips in spread over 6 years.</div>
     <div><b>Stops were the ingredient that mattered.</b>On 4h charts the move-to-breakeven and trailing stop did more than any indicator.</div>
     <div><b>An effect with a reason beats a chart pattern.</b>The only thing that held up is a dollar flow with a known cause, not an indicator mix.</div>
-    <div><b>Mixing unrelated systems helps.</b>Trend + Fed day raised return per drawdown from 0.41 to 0.63, about 16%/yr at a 25% max drawdown in a typical backtest year. All 4 systems now run as a forward paper test, started Nov 9, 2026.</div>
+    <div><b>Mixing unrelated systems helps.</b>Trend + Fed day raised return per drawdown from 0.41 to 0.63, about 16%/yr at a 25% max drawdown in a typical backtest year. All 4 systems now run as a forward paper test, started Nov 9, 2026. First week: 1 closed trade, +85.6 pips (4-hour trend A, Nov 10–13); no Fed-day trade yet (next meeting Dec 9). Paused Nov 15: the practice-account data feed needs a new key.</div>
   </div>
   <p class="src">Oanda candles (15m → daily, 10 pairs, measured spreads, back to 2005), FRED, federalreserve.gov · <a href="https://github.com/Timothymycompc/trading-review/blob/master/forex.md">full write-up</a><a href="https://github.com/Timothymycompc/trading-review/blob/master/night-desk/research/fx/FINDINGS.md">findings</a><a href="https://github.com/Timothymycompc/trading-review/tree/master/night-desk/research/fx">every price file</a></p>
 </section>
