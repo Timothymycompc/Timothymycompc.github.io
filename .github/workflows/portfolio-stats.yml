@@ -1,0 +1,23 @@
+name: Update portfolio numbers
+# Refreshes only the GitHub-derived numbers marked data-auto in index.html. Prose is untouched.
+on:
+  schedule:
+    - cron: "40 22 * * *"   # 16:40 Dallas (CST)
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/scripts/update_portfolio.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet; then echo "no change"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Portfolio: refresh auto numbers from GitHub"
+          git push
